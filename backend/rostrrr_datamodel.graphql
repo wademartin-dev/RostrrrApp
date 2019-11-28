@@ -1,5 +1,5 @@
 type Address {
-  street: String!
+  street: String
   city: String!
   state: String!
   country: String!
@@ -74,7 +74,9 @@ type Week {
 type Schedule {
   id: ID! @unique
   weeks: [Week]
-  Department: Department!
+  location: Location
+  department: Department
+  team: Team!
   createdAt: DateTime! @createdAt
   updatedAt: DateTime! @updatedAt
   updatedBy: User!
@@ -120,6 +122,7 @@ type Department {
   id: ID! @unique
   name: String! @default(value: "Admin")
   location: Location!
+  teams: [Team!]!
 }
 
 type Location {
