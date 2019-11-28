@@ -5,14 +5,14 @@ Staff scheduling web application. JAM Stack: Next.js, GraphQL (Prisma, GrapQL Yo
 ## Functionality
 
 1. To begin a user must sign up (using Auth0). This requires:
-   i: A first name.
-   ii: A unique email address.
-   iii: A password.
-   iv: Alternatively 3rd party sign up may be used (Google or Facebook)
+   i) A first name.
+   ii) A unique email address.
+   iii) A password.
+   iv) Alternatively 3rd party sign up may be used (Google or Facebook)
 
 2. Once signed up the user may join an existing business (via an invite) or create a new business.
 
-3. If the user creates a new business the must provide:
+3. If the user creates a new business they must provide:
    i: The business name.
    ii: A unique email address.
    iii: The business location (City, State, Country and Postcode @ minimum).
