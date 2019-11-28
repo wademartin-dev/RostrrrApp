@@ -1,0 +1,163 @@
+type Address {
+  street: String!
+  city: String!
+  state: String!
+  country: String!
+  postcode: String!
+}
+
+type ScheduleOptions {
+  dayStart: DateTime! @default(value: "08:00")
+  dayEnd: DateTime! @default(value: "18:00")
+  weekStartDay: DateTime! @default(value: "Monday")
+  defaultShift: DateTime! @default(value: "PT08H")
+  mealBreakDuration: DateTime @deafult(value: "PT30M")
+  breakDuration: DateTime @default(value: "PT10M")
+  keepPrivate: Boolean @default(value: "false")
+  shiftSwap: Boolean @default(value: "true")
+  swapApproval: Boolean @default(value: "true")
+  offerShift: Boolean @default(value: "true")
+}
+
+type Shift {
+  id: ID! @unique
+  staffMember: User! @relation(name: staffShift)
+  startTime: DateTime!
+  endTime: DateTime!
+  duration: DateTime!
+  lunch: DateTime
+  breaks: [DateTime]
+  isOpen: Boolean
+  isClose: Boolean
+  isDouble: Boolean
+  tags: [String]
+  flags: [String]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  updatedBy: User! @relation(name: "shiftUpdate")
+  previousShiftVersions: [PreviousShiftVersion]
+}
+
+type PreviousShiftVersion {
+  id: ID! @unique
+  shift: Shift!
+  staffMember: User! @relation(name: staffShift)
+  startTime: DateTime!
+  endTime: DateTime!
+  duration: DateTime!
+  lunch: DateTime
+  breaks: [DateTime]
+  isOpen: Boolean
+  isClose: Boolean
+  isDouble: Boolean
+  tags: [String]
+  flags: [String]
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  updatedBy: User! @relation(name: "shiftUpdate")
+}
+
+type Day {
+  id: ID! @unique
+  week: Week!
+  date: DateTime!
+  shifts: [Shift]
+}
+
+type Week {
+  id: ID! @unique
+  weekNumber: DateTime!
+  days: [Day!]!
+  schedule: Schedule!
+}
+
+type Schedule {
+  id: ID! @unique
+  weeks: [Week]
+  Department: Department!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  updatedBy: User!
+}
+
+type Role {
+  id: ID! @unique
+  roleType: String!
+  team: Team
+  department: Department
+  location: Location
+  business: Business!
+  user: User!
+}
+
+type Message {
+  id: ID! @unique
+  owner: User!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+  messageText: String!
+}
+
+type Chat {
+  id: ID! @unique
+  business: Business
+  location: Location
+  department: Department
+  team: Team
+  users: [User!]!
+  messages: [Message]
+}
+
+type Team {
+  id: ID! @unique
+  name: String!
+  department: Department!
+  staff: [User]
+  schedules: [Schedule]
+}
+
+type Department {
+  id: ID! @unique
+  name: String! @default(value: "Admin")
+  location: Location!
+}
+
+type Location {
+  id: ID! @unique
+  business: Business!
+  name: String!
+  email: String! @unique
+  phone: String
+  address: Address!
+  departments: [Department]
+  scheduleOptions: ScheduleOptions!
+}
+
+type Business {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  phone: String
+  address: Address!
+  locations: [Location]
+  ABN: String
+  businessType: [String]
+}
+
+type User {
+  id: ID! @unique
+  firstName: String!
+  lastName: String
+  dob: DateTime
+  phone: String
+  email: String! @unique
+  auth: String!
+  Businesses: [Business]
+  Locations: [Location]
+  Departments: [Department]
+  roles: [Role!]!
+  availability: [Week]
+  leave: [Leave]
+  currentSchedule: Schedule
+  previousSchedules: [Schedule]
+}

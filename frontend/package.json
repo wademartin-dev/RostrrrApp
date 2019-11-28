@@ -1,0 +1,27 @@
+{
+  "name": "RostrrApp",
+  "version": "1.0.0",
+  "description": "Staff scheduling web application. JAM Stack: Next.js, GraphQL (Prisma, GrapQL Yoga, Apollo)",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wade-Martin/RostrrApp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Wade-Martin/RostrrApp/issues"
+  },
+  "homepage": "https://github.com/Wade-Martin/RostrrApp#readme",
+  "dependencies": {
+    "next": "^9.1.4",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
