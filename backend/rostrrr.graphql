@@ -7,90 +7,90 @@ type Address {
 }
 
 type ScheduleOptions {
-  dayStart: DateTime! @default(value: "08:00")
-  dayEnd: DateTime! @default(value: "18:00")
-  weekStartDay: DateTime! @default(value: "Monday")
-  defaultShift: DateTime! @default(value: "PT08H")
-  mealBreakDuration: DateTime @default(value: "PT30M")
-  breakDuration: DateTime @default(value: "PT10M")
-  keepPrivate: Boolean @default(value: "false")
-  shiftSwap: Boolean @default(value: "true")
-  swapApproval: Boolean @default(value: "true")
-  offerShift: Boolean @default(value: "true")
+  dayStart: String!
+  dayEnd: String!
+  weekStartDay: String!
+  defaultShift: String!
+  mealBreakDuration: String
+  breakDuration: String
+  keepPrivate: Boolean
+  shiftSwap: Boolean
+  swapApproval: Boolean
+  offerShift: Boolean
   location: Location!
 }
 
 type Shift {
-  id: ID! @unique
-  staffMember: User! @relation(name: staffShift)
-  startTime: DateTime!
-  endTime: DateTime!
-  duration: DateTime!
-  lunch: DateTime
-  breaks: [DateTime]
+  id: ID!
+  staffMember: User!
+  startTime: String!
+  endTime: String!
+  duration: String!
+  lunch: String
+  breaks: [String]
   isOpen: Boolean
   isClose: Boolean
   isDouble: Boolean
   tags: [String]
   flags: [String]
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  updatedBy: User! @relation(name: "shiftUpdate")
+  createdAt: String!
+  updatedAt: String!
+  updatedBy: User!
   previousShiftVersions: [PreviousShiftVersion]
 }
 
 type PreviousShiftVersion {
-  id: ID! @unique
+  id: ID!
   shift: Shift!
-  staffMember: User! @relation(name: staffShift)
-  startTime: DateTime!
-  endTime: DateTime!
-  duration: DateTime!
-  lunch: DateTime
-  breaks: [DateTime]
+  staffMember: User!
+  startTime: String!
+  endTime: String!
+  duration: String!
+  lunch: String
+  breaks: [String]
   isOpen: Boolean
   isClose: Boolean
   isDouble: Boolean
   tags: [String]
   flags: [String]
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
-  updatedBy: User! @relation(name: "shiftUpdate")
+  createdAt: String!
+  updatedAt: String!
+  updatedBy: User!
 }
 
 type Day {
-  id: ID! @unique
+  id: ID!
   week: Week!
-  date: DateTime!
+  date: String!
   shifts: [Shift]
 }
 
 type Week {
-  id: ID! @unique
-  weekNumber: DateTime!
+  id: ID!
+  weekNumber: String!
   days: [Day!]!
   schedule: Schedule!
 }
 
 type Leave {
   teamMember: User!
-  startDate: DateTime!
-  endDate: DateTime!
+  startDate: String!
+  endDate: String!
 }
 
 type Schedule {
-  id: ID! @unique
+  id: ID!
   weeks: [Week]
   location: Location
   department: Department
   team: Team!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: String!
+  updatedAt: String!
   updatedBy: User!
 }
 
 type Role {
-  id: ID! @unique
+  id: ID!
   permission: String!
   team: Team
   department: Department
@@ -100,15 +100,15 @@ type Role {
 }
 
 type Message {
-  id: ID! @unique
+  id: ID!
   owner: User!
-  createdAt: DateTime! @createdAt
-  updatedAt: DateTime! @updatedAt
+  createdAt: String!
+  updatedAt: String!
   messageText: String!
 }
 
 type Chat {
-  id: ID! @unique
+  id: ID!
   business: Business
   location: Location
   department: Department
@@ -118,7 +118,7 @@ type Chat {
 }
 
 type Team {
-  id: ID! @unique
+  id: ID!
   name: String!
   department: Department!
   staff: [User]
@@ -126,17 +126,17 @@ type Team {
 }
 
 type Department {
-  id: ID! @unique
-  name: String! @default(value: "Admin")
+  id: ID!
+  name: String!
   location: Location!
   teams: [Team!]!
 }
 
 type Location {
-  id: ID! @unique
+  id: ID!
   business: Business!
   name: String!
-  email: String! @unique
+  email: String!
   phone: String
   address: Address!
   departments: [Department]
@@ -144,9 +144,9 @@ type Location {
 }
 
 type Business {
-  id: ID! @unique
+  id: ID!
   name: String!
-  email: String! @unique
+  email: String!
   phone: String
   address: Address!
   locations: [Location]
@@ -155,12 +155,12 @@ type Business {
 }
 
 type User {
-  id: ID! @unique
+  id: ID!
   firstName: String!
   lastName: String
-  dob: DateTime
+  dob: String
   phone: String
-  email: String! @unique
+  email: String!
   auth: String!
   Businesses: [Business]
   Locations: [Location]
